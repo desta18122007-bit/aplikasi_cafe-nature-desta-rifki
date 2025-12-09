@@ -1,0 +1,1 @@
+Place your cafe images in this folder. Recommended: cafe_bg.jpg, coffee1.jpg, coffee2.jpg
