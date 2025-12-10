@@ -15,10 +15,9 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final items = cart.items; // Map<String, int>
+    final items = cart.items;
 
     return Scaffold(
-      
       appBar: AppBar(title: const Text('Cart')),
 
       body: items.isEmpty
@@ -31,14 +30,22 @@ class _CartScreenState extends State<CartScreen> {
                 final MenuModel? item = cart.catalog[id];
 
                 return ListTile(
-                  leading: item != null
-                      ? Image.network(
-                          item.image,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                        )
-                      : null,
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      "assets/images/${item?.image}",
+                      width: 55,
+                      height: 55,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        width: 55,
+                        height: 55,
+                        color: Colors.grey.shade300,
+                        alignment: Alignment.center,
+                        child: const Icon(Icons.image_not_supported),
+                      ),
+                    ),
+                  ),
                   title: Text(item?.name ?? 'Unknown'),
                   subtitle: Text('Qty: $qty'),
                   trailing: Text(
@@ -68,7 +75,7 @@ class _CartScreenState extends State<CartScreen> {
                     const SnackBar(content: Text("Checkout berhasil!")),
                   );
 
-                  setState(() {}); // refresh UI cart
+                  setState(() {}); // refresh UI
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("Checkout gagal: $e")),
